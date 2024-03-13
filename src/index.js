@@ -1,4 +1,4 @@
-//document.write('Hello,  world! \n');
+import './style.css';
 
 const mult = (x) => 2 * x;
 
