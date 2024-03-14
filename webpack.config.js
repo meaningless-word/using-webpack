@@ -4,23 +4,23 @@ const TerserWebpackPlugin = require('terser-webpack-plugin');
 const OptimizeCssAssetsWebpackPlugin = require('optimize-css-assets-webpack-plugin');
 
 module.exports = {
-    entry: './src/index.js',
+    entry: './src/index.ts',
     mode: "development",
     output: {
         filename: "super.js"
     },
     plugins: [ 
         new MiniCssExtractPlugin(),
-        new HtmlWebpackPlugin({
-            template:  "./src/index.pug",
-            filename: "index.html"
-        }),
+        new HtmlWebpackPlugin(),
         new TerserWebpackPlugin(),
         new OptimizeCssAssetsWebpackPlugin()
     ],
     optimization: {
         minimize: true,
-        minimizer: [new TerserWebpackPlugin(), new OptimizeCssAssetsWebpackPlugin()]
+        minimizer: [
+            new OptimizeCssAssetsWebpackPlugin(), 
+            new TerserWebpackPlugin()
+        ]
     },
     module: {
         rules: [
@@ -34,8 +34,8 @@ module.exports = {
                 test: /\.css$/
             },
             {
-                test: /\.pug$/,
-                use: 'pug-loader'
+                test: /\.ts$/,
+                use: 'ts-loader'
             }
         ]
     }
